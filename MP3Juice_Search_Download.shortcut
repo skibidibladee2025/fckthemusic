@@ -1,0 +1,119 @@
+{
+  "actions": [
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFInputType": 0,
+        "WFQuestion": "Enter song or artist name:",
+        "WFPlaceholder": "e.g., never gonna give you up",
+        "WFAskForInputType": 0
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "SearchQuery"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.geturlcontents",
+      "parameters": {
+        "WFURL": "https://YOUR_SERVER_URL/search",
+        "WFHTTPMethod": "POST",
+        "WFRequestBody": "{\"query\": \"SearchQuery\", \"max_results\": 5}",
+        "WFRequestBodyType": 1,
+        "WFHeaders": {
+          "Content-Type": "application/json"
+        },
+        "WFGetURLContentsType": 0
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "SearchResults"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.getdictionaryvalue",
+      "parameters": {
+        "WFKey": "results",
+        "WFDictionary": "SearchResults"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "ResultsList"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.choosefromlist",
+      "parameters": {
+        "WFList": "ResultsList",
+        "WFDisplayProperty": "title",
+        "WFSelectMultiple": false,
+        "WFPrompt": "Select a song to download"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "SelectedSong"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.getdictionaryvalue",
+      "parameters": {
+        "WFKey": "download_url",
+        "WFDictionary": "SelectedSong"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "DownloadURL"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.getdictionaryvalue",
+      "parameters": {
+        "WFKey": "title",
+        "WFDictionary": "SelectedSong"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "SongTitle"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.geturlcontents",
+      "parameters": {
+        "WFURL": "https://YOUR_SERVER_URL/download?url=DownloadURL&filename=SongTitle",
+        "WFHTTPMethod": "GET",
+        "WFGetURLContentsType": 1
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "MP3File"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.savefile",
+      "parameters": {
+        "WFAskForDestination": true,
+        "WFFile": "MP3File",
+        "WFCreationDate": "CurrentDate",
+        "WFOverwriteAction": 1
+      }
+    }
+  ],
+  "name": "MP3Juice Search & Download",
+  "shortcutDescription": "Search mp3juice.sc and download MP3 via your API server",
+  "iconName": "music.note",
+  "iconColor": "blue"
+}

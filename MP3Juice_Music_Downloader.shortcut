@@ -1,0 +1,70 @@
+{
+  "actions": [
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFInputType": 0,
+        "WFQuestion": "Enter song or artist name:",
+        "WFPlaceholder": "e.g., never gonna give you up",
+        "WFAskForInputType": 0
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "searchQuery"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.showmenu",
+      "parameters": {
+        "WFMenuItems": [
+          "Search & Download",
+          "Just Search"
+        ],
+        "WFMenuPrompt": "What would you like to do?"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.if",
+      "parameters": {
+        "WFIfAction": 0,
+        "WFIfCondition": 0,
+        "WFIfOperand1": 0,
+        "WFIfOperand2": "Search & Download"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.runshortcut",
+      "parameters": {
+        "WFShortcutName": "MP3Juice Search",
+        "WFShortcutInput": {
+          "query": "VariableValue_searchQuery",
+          "max_results": 5
+        }
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.else",
+      "parameters": {}
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.runshortcut",
+      "parameters": {
+        "WFShortcutName": "MP3Juice Search",
+        "WFShortcutInput": {
+          "query": "VariableValue_searchQuery",
+          "max_results": 5
+        }
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.endif",
+      "parameters": {}
+    }
+  ],
+  "name": "MP3Juice Music Downloader",
+  "shortcutDescription": "Search and download music from mp3juice.sc via your API server",
+  "iconName": "music.note",
+  "iconColor": "blue"
+}

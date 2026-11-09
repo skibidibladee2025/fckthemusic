@@ -1,0 +1,13 @@
+# Render.com deployment config
+# Push to GitHub, connect repo at render.com, it auto-detects this file
+
+services:
+  - type: web
+    name: mp3juice-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"

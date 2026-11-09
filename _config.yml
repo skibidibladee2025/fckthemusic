@@ -1,0 +1,6 @@
+# GitHub Pages config for FCKTHEMUSIC
+title: FCKTHEMUSIC
+description: Mobile-first music downloader
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-seo-tag
